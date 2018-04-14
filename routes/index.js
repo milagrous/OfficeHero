@@ -62,13 +62,13 @@ router.post('/questions', (req, res) => {
 });
 
 router.get('/hero', (req, res) => {
-    User.find({}).lean().exec((err, users) => {
+    User.findOne({}).lean().exec((err, users) => {
         if (err) throw err;
+        //
+        // let coef = users.length;
+        // let index = Math.floor(Math.random() * coef);
 
-        let coef = users.length;
-        let index = Math.floor(Math.random() * coef);
-
-        res.send(users[index]);
+        res.send(users[3]);
     });
 });
 
