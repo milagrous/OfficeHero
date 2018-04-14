@@ -4,8 +4,8 @@
 
 
 angular
-    .module("app",[])
-    .controller("mainCtrl",function ($scope) {
+    .module("app",['ngAnimate'])
+    .controller("mainCtrl",function ($scope,$timeout) {
         $scope.test = "Hello";
 
         $scope.selectAnswer = null;
@@ -21,8 +21,29 @@ angular
 
         $scope.guessPageAction = function () {
             $scope.changePages();
-            $scope.rulesPage = true;
+            $timeout(function () {
+                $scope.rulesPage = true;
+
+
+                $timeout(function () {
+                    jQuery( document ).ready(function( $ ) {
+                        $(function () {
+                            $('.write-text').typewriter({
+                                sound: true,
+                                cursorVisible: false,
+                                cursorColor: "#551A8B",
+                                randomTypeSpeed: true
+                            });
+                        });
+                    });
+                },400);
+
+            },1000);
         };
+
+        $timeout(function () {
+            $scope.guessPageAction();
+        },2000);
 
         $scope.setAnswer = function (answer) {
             $scope.selectAnswer = answer;
@@ -50,8 +71,6 @@ angular
         
         $scope.votePageAction = function () {
             $scope.changePages();
-            $scope.votePage = true;
-
 
             $scope.answers = [{
                 id: 1,
@@ -61,6 +80,11 @@ angular
                 label: 'bLabel'
             }];
 
+            $timeout(function () {
+                $scope.votePage = true;
+            },1000);
+
+
         };
 
         // $scope.votePageAction(); //tmp
@@ -68,4 +92,3 @@ angular
 
 
     });
-

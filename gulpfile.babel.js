@@ -11,7 +11,7 @@ import source from 'vinyl-source-stream';
 
 
 const out = './bin';
-const clientSrc = [ './public/*.js'];
+const clientSrc = [ './public/*.js', './public/**/*.js'];
 const indexFile = 'app.js';
 
 gulp.task('serve', [ 'build' ], () => {
