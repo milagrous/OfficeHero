@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 
 const QuestionScheme = new mongoose.Schema({
     topic: {
-        type: String,
+        type: String
     },
 
-    options: [String],
+    options: [String]
 });
 
 module.exports = mongoose.model('Question', QuestionScheme);

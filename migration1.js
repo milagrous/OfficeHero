@@ -1,4 +1,6 @@
-[
+const Question = requrie('./models/Question');
+
+let arr = [
   {
     topic: 'Favorite sport',
 
@@ -59,4 +61,9 @@
     topic: 'Childhood dream',
     options: ['Become an astronaut', 'Become a famous actor/actress', 'Become a truck driver']
   }
-]
+];
+
+Question.insertMany(arr, (err, doc) => {
+  if(err) throw err;
+  console.log(doc);
+});
