@@ -12,7 +12,8 @@ router.get('/questions', (req, res) => {
 
     let uid = req.cookies._id;
     User.findById(uid, (err, user) => {
-        // if (user.questions.length === 0) {
+        if(err) throw err;
+        if (user.questions.length === 0) {
             Question.find({}).lean().exec((err, questions) => {
                 if (err) throw err;
                 let data = [];
@@ -25,9 +26,9 @@ router.get('/questions', (req, res) => {
                 }
                 res.send(data);
             });
-        // } else {
-        //     res.send({status: 'cheating'});
-        // }
+        } else {
+            res.send({status: 'cheating'});
+        }
     });
 });
 
@@ -39,14 +40,15 @@ router.post('/questions', (req, res) => {
     let score = 0;
     if (option === 0) {
         score = score + 2;
-    } else if (option === 2){
+    } else if (option === 1){
         score = score + 4;
-    } else if (score === 3) {
+    } else if (score === 2) {
         score = score + 3;
     }
 
     User.findById(uid, (err, user) => {
-        if (user.questions.indexOf(qid) !== -1) {
+        if (err) throw err;
+        if (user.questions.indexOf(qid) === -1) {
             if (!user.score) {
                 user.score = score;
             } else {
