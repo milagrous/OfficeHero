@@ -3,7 +3,6 @@ const Question = requrie('./models/Question');
 let arr = [
   {
     topic: 'Favorite sport',
-
     options: ['Tennis', 'Chess', 'Football']
   },
 

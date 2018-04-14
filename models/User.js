@@ -11,7 +11,9 @@ const UserScheme = new mongoose.Schema({
 
     score: {
         type: Number
-    }
+    },
+
+    questions: [String]
 });
 
 module.exports = mongoose.model('User', UserScheme);
