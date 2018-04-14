@@ -3,8 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+
+    <script src="/index.js"></script>
+
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+
+    <link rel="stylesheet" href="stylesheets/style.css">
+
+    <!--<script src="www"></script>-->
+
 </head>
-<body>
+<body data-ng-app="app">
+
+<div data-ng-controller="mainCtrl">
+
+    <div class="home-page" data-ng-if="homePage">
+
+        <img src="image/overwolf.png" class="logo-home">
+
+        <p>Welcome to Office Hero...!!!</p>
+
+        <button data-ng-click="guessPageAction()">Guess hero</button>
+
+    </div>
+
+    <div class="rules-page" data-ng-if="rulesPage">
+        <div>RULES</div>
+
+        <button data-ng-click="votePageAction()">Let's Start</button>
+    </div>
+
+    <div class="vote-page" data-ng-if="votePage">
+        <p>Office Hero</p>
+        <img src="profilePic/Apu.jpg">
+        <div class="question-block">
+            <p>Question ? ? ? </p>
+            <div class="answer-block">
+                <div data-ng-repeat="answer in answers">
+                    <button class="answer-button" data-ng-class="{'answer-select': answer.id == selectAnswer.id}" data-ng-click="setAnswer(answer);">{{answer.label}}</button>
+                </div>
+            </div>
+
+            <button class="answer-approve" data-ng-click="approveAnswer()">Approve</button>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
