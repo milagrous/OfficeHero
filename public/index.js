@@ -4,8 +4,21 @@
 
 
 angular
-    .module("app",['ngAnimate'])
-    .controller("mainCtrl",function ($scope,$timeout) {
+    .module("app",['ngAnimate','ngResource','ngCookies'])
+    .factory('question', function ($resource) {
+        return $resource("/v1/api/questions",{},{
+            // create: {method: 'POST',params:{garageTypeId:'by-organization'},headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
+            getAll: {method: 'GET',isArray:true},
+            setAnswer: {method: 'POST'}
+        });
+    })
+    .factory('user', function ($resource) {
+        return $resource("/v1/api/user",{},{
+            // create: {method: 'POST',params:{garageTypeId:'by-organization'},headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
+            getUserInfo: {method: 'GET'}
+        });
+    })
+    .controller("mainCtrl",function ($scope,$timeout,question,user,$cookies) {
         $scope.test = "Hello";
 
         $scope.selectAnswer = null;
@@ -54,14 +67,13 @@ angular
             if ($scope.selectAnswer != null){
                 console.log($scope.selectAnswer);
 
-                $scope.selectAnswer = null;
-                $scope.answers = [{
-                    id: 1,
-                    label: 'QUEST 2'
-                }, {
-                    id: 2,
-                    label: 'Quest 2'
-                }];
+                question.setAnswer({},{_id:$scope.questions[$scope.questionKey][0]._id,option:$scope.selectAnswer},function (response) {
+                    $scope.selectAnswer = null;
+                    $scope.questionKey++;
+                    if ($scope.questionKey > 4){
+                        alert("done");
+                    }
+                });
             } else {
                 alert("Choose");
             }
@@ -70,19 +82,34 @@ angular
         };
         
         $scope.votePageAction = function () {
-            $scope.changePages();
 
-            $scope.answers = [{
-                id: 1,
-                label: 'aLabel'
-            }, {
-                id: 2,
-                label: 'bLabel'
-            }];
+            user.getUserInfo({},{},function (response) {
+                $cookies.put("_id", response._id);
 
-            $timeout(function () {
-                $scope.votePage = true;
-            },1000);
+                $scope.changePages();
+                $scope.questionKey = 0;
+
+                question.getAll({},{},function (response) {
+                    console.log(response);
+                    $scope.questions = response;
+                });
+
+                $scope.answers = [{
+                    id: 1,
+                    label: 'aLabel'
+                }, {
+                    id: 2,
+                    label: 'bLabel'
+                }];
+
+                $timeout(function () {
+                    $scope.votePage = true;
+                },1000);
+
+
+            });
+
+
 
 
         };

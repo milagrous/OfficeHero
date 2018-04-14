@@ -7,6 +7,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.4/angular-resource.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-cookies.js"></script>
+
 
     <script src="/index.js"></script>
 
@@ -34,7 +37,7 @@
                 }, options);
 
 //                var text = "Once upon a time, in a Galaxy far, far away, there was an office of extraordinary and talented engineers. Their daily life was boring, with repetitive tasks and meetings, however each of them had a secret superpower and was a hero inside. One day the HR department decided to uncover the hidden talents of everybody in the office and make the team more aware of each other’s secret power, so they can effectively collaborate together to solve the Galaxy’s most challenging problems. As a prize, the winners of the week are getting a company-subsidized lunch coupon for two. Each day there will be one person selected as Office Hero. Your task is to answer to 5 multi-choice questions about that person and get the most possible score. You are eligible for only one try per day. There are daily, weekly and monthly leaderboards to track the progress. Daily participation will increase your chance to win. Take your chance to become an Office Hero!";
-                var text = "Once upon a time, in a Galaxy far, far away";
+                var text = "Once";
 
                 var $self = $(this);
                 // Convert selected element to array
@@ -183,13 +186,16 @@
         <img src="profilePic/Apu.jpg">
 
         <div>
-            <p>Lorem Ipsum</p>
+            <p>Name LastName</p>
         </div>
+
+
+
         <div class="question-block">
-            <p>Question ? ? ? </p>
+            <p>{{questions[questionKey][0].topic}} ???</p>
             <div class="answer-block">
-                <div data-ng-repeat="answer in answers">
-                    <button class="answer-button" data-ng-class="{'answer-select': answer.id == selectAnswer.id}" data-ng-click="setAnswer(answer);">{{answer.label}}</button>
+                <div data-ng-repeat="(key,answer) in questions[questionKey][0].options">
+                    <button class="answer-button" data-ng-class="{'answer-select': key == selectAnswer}" data-ng-click="setAnswer(key);">{{answer}}</button>
                 </div>
             </div>
 

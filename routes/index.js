@@ -12,7 +12,7 @@ router.get('/questions', (req, res) => {
 
     let uid = req.cookies._id;
     User.findById(uid, (err, user) => {
-        if (user.questions.length === 0) {
+        // if (user.questions.length === 0) {
             Question.find({}).lean().exec((err, questions) => {
                 if (err) throw err;
                 let data = [];
@@ -25,9 +25,9 @@ router.get('/questions', (req, res) => {
                 }
                 res.send(data);
             });
-        } else {
-            res.send({status: 'cheating'});
-        }
+        // } else {
+        //     res.send({status: 'cheating'});
+        // }
     });
 });
 
