@@ -57,3 +57,16 @@ typings/
 # dotenv environment variables file
 .env
 
+# IDE
+.idea
+# mac
+.DS_Store
+
+# front
+app/bundles.js
+app/dist/temp/*.png
+app/dist/temp/*.woff
+app/dist/temp/*.woff2
+app/dist/temp/*.eot
+app/dist/temp/*.ttf
+app/dist/temp/*.svg
