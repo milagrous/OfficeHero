@@ -5,11 +5,7 @@ const logger = require('morgan');
 const fs = require('fs');
 
 const mongoose = require('mongoose');
-
-
-
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 
 const app = express();
 
@@ -22,7 +18,6 @@ app.use(express.static(path.join(__dirname, 'bin')));
 
 
 app.use('/v1/api', indexRouter);
-app.use('/v1/api/users', usersRouter);
 
 let index;
 fs.readFile( __dirname + '/public/' + "index.html", 'utf8', (err, data) => {
@@ -41,6 +36,5 @@ mongoose.connection.on('error', (err) => {
         process.exit(-1);
     }
 );
-
 
 app.listen(process.env.PORT || 3000, () => {console.log('listening port 3000')});

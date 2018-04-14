@@ -29,10 +29,10 @@ gulp.task('build', () => {
         .pipe(gulp.dest(out));
 });
 
-
+/*
 gulp.task('mongo', () => {
     return run('mongod --dbpath ./data').exec();
-});
+});*/
 
 gulp.task('watch', [ 'build' ], () => {
     gulp.watch(clientSrc, [ 'build' ]);
