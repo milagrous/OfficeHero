@@ -62,7 +62,7 @@ router.post('/questions', (req, res) => {
 });
 
 router.get('/hero', (req, res) => {
-    User.findOne({}).lean().exec((err, users) => {
+    User.find({}).lean().exec((err, users) => {
         if (err) throw err;
         //
         // let coef = users.length;
