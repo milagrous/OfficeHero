@@ -76,3 +76,6 @@ package-lock.json
 
 # dist
 bin/
+
+# db
+data/
