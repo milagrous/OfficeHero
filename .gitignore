@@ -70,3 +70,9 @@ app/dist/temp/*.woff2
 app/dist/temp/*.eot
 app/dist/temp/*.ttf
 app/dist/temp/*.svg
+
+# packae-lock
+package-lock.json
+
+# dist
+bin/
