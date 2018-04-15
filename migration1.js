@@ -1,4 +1,4 @@
-const Question = requrie('./models/Question');
+const Question = require('./models/Question');
 
 let arr = [
   {
