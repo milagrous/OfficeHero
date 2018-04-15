@@ -10,6 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.4/angular-resource.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-cookies.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+
 
     <script src="/index.js"></script>
 
@@ -21,6 +25,8 @@
     <script src="/jquery.typewriter.js"></script>
 
     <link rel="stylesheet" href="stylesheets/style.css">
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
 
     <script type="application/javascript">
 
@@ -176,31 +182,161 @@
         </div>
 
         <!--<div class="center">-->
-            <button class="vote-page-button" data-ng-click="votePageAction()">Let's Start</button>
+        <div class="vote-page-button" data-ng-click="votePageAction()"><a aria-label='Thanks' class='h-button centered' data-text="Are you ready ?" href='#'>
+            <span>G</span>
+            <span>o</span>
+            <span>o</span>
+            <span>o</span>
+            <span>o</span>
+            <span>o</span>
+            <span>!</span>
+            <span>!</span>
+            <span>!</span>
+        </a></div>
+
+        <button class="leaderboard" data-ng-click="leaderboardPageAction()">Leaderboard</button>
+        <button class="leaderboard-hero" data-ng-click="leaderboardHeroPageAction()">LeaderboardHero</button>
         <!--</div>-->
 
     </div>
 
     <div class="vote-page animationIf" data-ng-if="votePage">
-        <p>Office Hero</p>
-        <img src="profilePic/Apu.jpg">
+        <p class="vote-page-title">Office Hero</p>
 
-        <div>
-            <p>Name LastName</p>
+        <div class="avatar-block">
+            <img class="avatar" src="profilePic/1.jpg">
+            <p>{{hero.name}}</p>
         </div>
 
 
 
         <div class="question-block">
-            <p>{{questions[questionKey][0].topic}} ???</p>
+            <p>{{questions[questionKey][0].topic}} ?</p>
             <div class="answer-block">
                 <div data-ng-repeat="(key,answer) in questions[questionKey][0].options">
                     <button class="answer-button" data-ng-class="{'answer-select': key == selectAnswer}" data-ng-click="setAnswer(key);">{{answer}}</button>
                 </div>
             </div>
 
-            <button class="answer-approve" data-ng-click="approveAnswer()">Approve</button>
+            <!--<button class="answer-approve" data-ng-click="approveAnswer()">Approve</button>-->
+
+            <div class="answer-approve" data-ng-click="approveAnswer()"><a aria-label='Thanks' class='h-button centered' data-text="Approve" href='#'>
+                <span>A</span>
+                <span>p</span>
+                <span>p</span>
+                <span>r</span>
+                <span>o</span>
+                <span>v</span>
+                <span>e</span>
+            </a></div>
         </div>
+    </div>
+
+    <div class="leaderboard-page animationIf" data-ng-if="leaderboardPage">
+         <md-content>
+            <md-tabs md-dynamic-height="" md-border-bottom="">
+                <md-tab label="Last Day">
+                    <md-content class="md-padding">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="tableHeader">Leaderboard</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <table class="table-bordered">
+                                    <thead>
+                                    <tr class="camper">
+                                        <th>User</th>
+                                        <th>Points</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="(key,user) in userList | orderBy: '-score'">
+                                    <tr class="camper">
+                                        <td class="name">
+                                            <a href="#" class="camper-href">
+                                                <img class="profileImg" src="profilePic/{{key}}.jpg"/>
+                                                <p>{{user.name}}</p>
+                                            </a>
+                                        </td>
+                                        <td class="number">{{user.score}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Last Week">
+                    <md-content class="md-padding">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="tableHeader">Leaderboard</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <table class="table-bordered">
+                                    <thead>
+                                    <tr class="camper">
+                                        <th>User</th>
+                                        <th>Points</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="(key,user) in userList | orderBy: '-score'">
+                                    <tr class="camper">
+                                        <td class="name">
+                                            <a href="#" class="camper-href">
+                                                <img class="profileImg" src="profilePic/{{key}}.jpg"/>
+                                                <p>{{user.name}}</p>
+                                            </a>
+                                        </td>
+                                        <td class="number">{{user.score}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="Last Month">
+                    <md-content class="md-padding">
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="tableHeader">Leaderboard</div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <table class="table-bordered">
+                                    <thead>
+                                    <tr class="camper">
+                                        <th>User</th>
+                                        <th>Points</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="(key,user) in userList | orderBy: '-score'">
+                                    <tr class="camper">
+                                        <td class="name">
+                                            <a href="#" class="camper-href">
+                                                <img class="profileImg" src="profilePic/{{key}}.jpg"/>
+                                                <p>{{user.name}}</p>
+                                            </a>
+                                        </td>
+                                        <td class="number">{{user.score}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+
     </div>
 
 </div>

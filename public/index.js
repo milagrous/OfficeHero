@@ -4,22 +4,26 @@
 
 
 angular
-    .module("app",['ngAnimate','ngResource','ngCookies'])
+    .module("app",['ngAnimate','ngResource','ngCookies','ngMaterial','ngMessages'])
     .factory('question', function ($resource) {
         return $resource("/v1/api/questions",{},{
-            // create: {method: 'POST',params:{garageTypeId:'by-organization'},headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
             getAll: {method: 'GET',isArray:true},
             setAnswer: {method: 'POST'}
         });
     })
     .factory('user', function ($resource) {
-        return $resource("/v1/api/user",{},{
-            // create: {method: 'POST',params:{garageTypeId:'by-organization'},headers: {'Content-Type': 'application/x-www-form-urlencoded'}},
-            getUserInfo: {method: 'GET'}
+        return $resource("/v1/api/:type",{},{
+            getUserInfo: {method: 'GET',params:{type:'user'}},
+            getAllUser: {method: 'GET',params:{type:'users'},isArray:true}
         });
     })
-    .controller("mainCtrl",function ($scope,$timeout,question,user,$cookies) {
-        $scope.test = "Hello";
+    .factory('hero', function ($resource) {
+        return $resource("/v1/api/:type",{},{
+            getHeroInfo: {method: 'GET',params:{type:"hero"}},
+            getHeroLeaderInfo: {method: 'GET',params:{type:"heros"},isArray:true}
+        });
+    })
+    .controller("mainCtrl",function ($scope,$timeout,question,user,hero,$cookies) {
 
         $scope.selectAnswer = null;
 
@@ -27,6 +31,7 @@ angular
             $scope.homePage = false;
             $scope.rulesPage = false;
             $scope.votePage = false;
+            $scope.leaderboardPage = false;
         };
         $scope.changePages($scope.homePage);
 
@@ -56,7 +61,7 @@ angular
 
         $timeout(function () {
             $scope.guessPageAction();
-        },2000);
+        },2500);
 
         $scope.setAnswer = function (answer) {
             $scope.selectAnswer = answer;
@@ -71,11 +76,11 @@ angular
                     $scope.selectAnswer = null;
                     $scope.questionKey++;
                     if ($scope.questionKey > 4){
-                        alert("done");
+                        $scope.leaderboardPageAction();
                     }
                 });
             } else {
-                alert("Choose");
+                console.log("Choose");
             }
 
 
@@ -83,35 +88,58 @@ angular
         
         $scope.votePageAction = function () {
 
-            user.getUserInfo({},{},function (response) {
-                $cookies.put("_id", response._id);
 
-                $scope.changePages();
-                $scope.questionKey = 0;
+            hero.getHeroInfo({},{},function (response) {
+                $scope.hero = response;
+                user.getUserInfo({},{},function (response) {
+                    $cookies.put("_id", response._id);
 
-                question.getAll({},{},function (response) {
-                    console.log(response);
-                    $scope.questions = response;
+                    $scope.changePages();
+                    $scope.questionKey = 0;
+
+                    question.getAll({},{},function (response) {
+                        console.log(response);
+                        $scope.questions = response;
+                    });
+
+                    $timeout(function () {
+                        $scope.votePage = true;
+                    },1000);
+
+
                 });
+            });
+        };
 
-                $scope.answers = [{
-                    id: 1,
-                    label: 'aLabel'
-                }, {
-                    id: 2,
-                    label: 'bLabel'
-                }];
+        $scope.leaderboardPageAction = function () {
+            $scope.changePages();
 
-                $timeout(function () {
-                    $scope.votePage = true;
-                },1000);
+            user.getAllUser({},{},function (response) {
+                console.log(response);
+                $scope.userList = response;
+            });
 
+            $timeout(function () {
+                $scope.leaderboardPage = true;
+            },1000);
+
+        };
+
+        $scope.leaderboardHeroPageAction = function () {
+            $scope.changePages();
+
+            hero.getHeroLeaderInfo({},{},function (response) {
+                $scope.userList = response;
+
+                angular.forEach($scope.userList,function (data) {
+                    data.score = data.heroScore;
+                });
 
             });
 
-
-
-
+            $timeout(function () {
+                $scope.leaderboardPage = true;
+            },1000);
         };
 
         // $scope.votePageAction(); //tmp
