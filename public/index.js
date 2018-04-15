@@ -106,7 +106,6 @@ angular
                         $scope.votePage = true;
                     },1000);
 
-
                 });
             });
         };

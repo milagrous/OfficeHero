@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
+    <title>Office Hero</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.js"></script>
@@ -16,9 +15,6 @@
 
 
     <script src="/index.js"></script>
-
-    <!--<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>-->
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"/>;
 
@@ -42,12 +38,10 @@
                     randomTypeSpeed:true
                 }, options);
 
-//                var text = "Once upon a time, in a Galaxy far, far away, there was an office of extraordinary and talented engineers. Their daily life was boring, with repetitive tasks and meetings, however each of them had a secret superpower and was a hero inside. One day the HR department decided to uncover the hidden talents of everybody in the office and make the team more aware of each other’s secret power, so they can effectively collaborate together to solve the Galaxy’s most challenging problems. As a prize, the winners of the week are getting a company-subsidized lunch coupon for two. Each day there will be one person selected as Office Hero. Your task is to answer to 5 multi-choice questions about that person and get the most possible score. You are eligible for only one try per day. There are daily, weekly and monthly leaderboards to track the progress. Daily participation will increase your chance to win. Take your chance to become an Office Hero!";
-                var text = "Once";
+                var text = "Knock, knock, Neo ... \r Once upon a time, in a Galaxy far, far away, there was an office of extraordinary and talented engineers. Their daily life was boring, with repetitive tasks and meetings, however each of them had a secret superpower and was a hero inside. \n One day the HR department decided to uncover the hidden talents of everybody in the office and make the team more aware of each other’s secret power, so they can effectively collaborate together to solve the Galaxy’s most challenging problems. \n As a prize, the winners of the week are getting a company-subsidized lunch coupon for two. Each day there will be one person selected as Office Hero. Your task is to answer to 5 multi-choice questions about that person and get the most possible score. You are eligible for only one try per day. There are daily, weekly and monthly leaderboards to track the progress. Daily participation will increase your chance to win. Take your chance to become an Office Hero!";
 
                 var $self = $(this);
                 // Convert selected element to array
-//                var chosenElement = $(this).text();
                 var chosenElement = text;
                 console.log(chosenElement);
 
@@ -85,44 +79,65 @@
                 // first element
                 var position = 0;
                 // Set up an interval to loop every however many milliseconds
+                
+                function test() {
+                    var type = setInterval(function() {
 
-                var type = setInterval(function() {
-
-                    if (settings.randomTypeSpeed) {
-                        // Defines a random time interval
-                        var randTime = 0; // 5 seconds in milliseconds
-                    } else {
-                        var randTime = 0;
-                    }
-                    setTimeout(function() {
-                        console.log("I ran after ", randTime);
-
-                        // Sound effects
-                        if (settings.sound === true) {
-                            var audio = $('audio.sound')[0];
-                            audio.currentTime = 0;
-                            audio.play();
+                        if (settings.randomTypeSpeed) {
+                            // Defines a random time interval
+                            var randTime = 0; // 5 seconds in milliseconds
+                        } else {
+                            var randTime = 0;
                         }
+                        setTimeout(function() {
+                            console.log("I ran after ", randTime);
 
-                        // We append the element to the user selected element
-                        // $self refers to what element the user called our plugin on
-                        // We use the position number to access the element from the array, like elementSplit[0]
-                        $self.find('span').before(elementSplit[position]);
-                        // Increment the position for the next interval we get the next element from our array
-                        position++;
+                            // Sound effects
+                            if (settings.sound === true) {
+                                var audio = $('audio.sound')[0];
+                                audio.currentTime = 0;
+                                audio.play();
+                            }
 
-                        // If the position is greater the length of the array
-                        if (position > elementLength) {
-                            // Shut it down
-                            clearInterval(type);
+                            // We append the element to the user selected element
+                            // $self refers to what element the user called our plugin on
+                            // We use the position number to access the element from the array, like elementSplit[0]
+                            $self.find('span').before(elementSplit[position]);
+
+                            if (elementSplit[position] == "\n"){
+                                $self.find('span').before("<br/>");
+                            }
+
+                            if (elementSplit[position] == "\r"){
+                                clearInterval(type);
+                                setTimeout(function() {
+                                    test();
+                                },3000);
+                            }
+                            // Increment the position for the next interval we get the next element from our array
+                            position++;
+
+                            // If the position is greater the length of the array
+                            if (position > elementLength) {
+                                // Shut it down
+                                clearInterval(type);
 //                            $(".vote-page-button").css('display', 'block');
-                            $(".vote-page-button").fadeIn( "slow", function() {
-                                // Animation complete.
-                            });
-                        }
-                    }, randTime);
+                                $(".vote-page-button").fadeIn( "slow", function() {
+                                    // Animation complete.
+                                });
+                                $(".leaderboard").fadeIn( "slow", function() {
+                                    // Animation complete.
+                                });
+                                $(".leaderboard-hero").fadeIn( "slow", function() {
+                                    // Animation complete.
+                                });
+                            }
+                        }, randTime);
 
-                },50); // ends setInterval
+                    },50); // ends setInterval
+                }
+
+                test();
 
             };  // ends fn.typewriter
 
@@ -135,15 +150,6 @@
 </head>
 <body data-ng-app="app">
 
-
-
-
-<!--<audio class="sound" src="typewriter.wav"></audio>-->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
-<!--<script src="script.js"></script>-->
-<!--<script src="jquery.typewriter.js"></script>-->
-
-
 <div data-ng-controller="mainCtrl">
 
     <div class="home-page animationIf" data-ng-if="homePage">
@@ -155,9 +161,6 @@
 
         </div>
 
-
-        <!--<button data-ng-click="guessPageAction()">Guess hero</button>-->
-
     </div>
 
     <div class="rules-page animationIf" data-ng-if="rulesPage">
@@ -165,8 +168,6 @@
 
         <div class="rules-content">
             <p class="write-text"></p>
-            <p class="write-text2"></p>
-            <p class="write-text3"></p>
         </div>
 
         <div class="wrapper">
@@ -194,8 +195,41 @@
             <span>!</span>
         </a></div>
 
-        <button class="leaderboard" data-ng-click="leaderboardPageAction()">Leaderboard</button>
-        <button class="leaderboard-hero" data-ng-click="leaderboardHeroPageAction()">LeaderboardHero</button>
+        <div class="leaderboard" data-ng-click="leaderboardPageAction()"><a aria-label='Thanks' class='h-button centered' data-text="Leaderboard" href='#'>
+            <span>D</span>
+            <span>o</span>
+            <span> </span>
+            <span>y</span>
+            <span>o</span>
+            <span>u</span>
+            <span> </span>
+            <span>V</span>
+            <span>o</span>
+            <span>o</span>
+            <span>d</span>
+            <span>o</span>
+            <span>o</span>
+            <span>?</span>
+        </a></div>
+
+        <div class="leaderboard-hero" data-ng-click="leaderboardHeroPageAction()"><a aria-label='Thanks' class='h-button centered' data-text="Leaderboard Hero" href='#'>
+            <span>A</span>
+            <span>r</span>
+            <span>e</span>
+            <span> </span>
+            <span>y</span>
+            <span>o</span>
+            <span>u</span>
+            <span> </span>
+            <span>H</span>
+            <span>e</span>
+            <span>r</span>
+            <span>o</span>
+            <span>?</span>
+
+        </a></div>
+        <!--<button class="leaderboard" data-ng-click="leaderboardPageAction()">Leaderboard</button>-->
+        <!--<button class="leaderboard-hero" data-ng-click="leaderboardHeroPageAction()">LeaderboardHero</button>-->
         <!--</div>-->
 
     </div>
