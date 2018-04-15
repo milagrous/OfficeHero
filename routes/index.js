@@ -55,10 +55,26 @@ router.post('/questions', (req, res) => {
                 user.score = user.score + score;
             }
             user.questions.push(qid);
-            user.save(function (err, updatedUser) {
+            user.save( (err, updatedUser) => {
                 if (err) return handleError(err);
-                res.send(updatedUser);
+
+                User.find({}).lean().exec((err, users) => {
+                    if (err) throw err;
+                    if (!users[3].heroScore) {
+                        users[3].heroScore = score;
+                    } else {
+                        users[3].heroScore = users[3].heroScore+ score;
+                    }
+
+                    User.findByIdAndUpdate(users[3]._id, { heroScore: users[3].heroScore}, (err, doc) => {
+                       if(err) throw err;
+                       res.send(doc);
+                    });
+                });
+
             });
+
+
         }
     });
 });
@@ -73,6 +89,14 @@ router.get('/hero', (req, res) => {
         res.send(users[3]);
     });
 });
+
+router.get('/heros', (req, res) => {
+    User.find({ heroScore: {$gt: 0}}).lean().exec((err, users) => {
+        if (err) throw err;
+        res.send(users);
+    });
+});
+
 
 router.get('/user', (req, res) => {
     User.find({}).lean().exec((err, users) => {

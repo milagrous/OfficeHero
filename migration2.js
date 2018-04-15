@@ -6,93 +6,104 @@ const User = require('./models/User');
 
 let arr = [
     {
-        name: 'Մերանգուլյան Վահրամ',
+        name: 'Vahram Merangulyan',
         score: 0,
+        HeroScore: 0,
         questions: []
     },
     {
-        name: 'Բուրունսուզյան Գեորգի',
+        name: 'Georgi Burunsuzyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Մերանգուլյան Վահրամ',
+        name: 'Gurgen Nersesyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Ներսեսյան Գուրգեն',
+        name: 'Levon Babayan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Բաբայան Լևոն',
+        name: 'Armen Papyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Պապյան Արմեն',
+        name: 'Vahram Tonoyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Տոնոյան Վահրամ',
+        name: 'Hrant Azatyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Ազատյան Հրանտ',
+        name: 'Samvel Hovakimyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Հովակիմյան Սամվել',
+        name: 'Ashot Madatyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Մադաթյան Աշոտ',
+        name: 'Ashot Petrosyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Մերանգուլյան Վահրամ',
+        name: 'Mikayel Aghasyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Պետրոսյան Աշոտ',
+        name: 'Manushak Markosyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Անդրիասյան Ալեքսանդր',
+        name: 'Garik Arevshatyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Մարկոսյան Մանուշակ',
+        name: 'Vahe Mkrtchyan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Ավագյան Նինա',
-        score: 0,
-        questions: []
-    },
-    {
-        name: 'Արևշատյան Գարիկ',
+        name: 'Armine Marukhyan',
         score: 0,
         questions: []
     },
     {
         name: 'Մկրտչյան Վահե',
         score: 0,
+        heroScore: 0,
         questions: []
     },
     {
-        name: 'Մարգարյան Կորյուն',
+        name: 'Koryun Margaryan',
         score: 0,
+        heroScore: 0,
         questions: []
     },
 ];
@@ -102,5 +113,3 @@ User.insertMany(arr, (err, doc) => {
     if(err) throw err;
     console.log(doc);
 });
-
-

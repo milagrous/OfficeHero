@@ -13,6 +13,10 @@ const UserScheme = new mongoose.Schema({
         type: Number
     },
 
+    heroScore: {
+        type: Number
+    },
+
     questions: [String]
 });
 
